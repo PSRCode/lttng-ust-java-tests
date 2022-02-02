@@ -32,8 +32,9 @@ public interface ILttngSession extends AutoCloseable {
      */
     enum Domain {
         /** The JUL (java.util.logging) domain */
-        JUL("-j"), /** The log4j (org.apache.log4j) domain */
-        LOG4J("-l");
+        JUL("--jul"), /** The log4j (org.apache.log4j) domain */
+        LOG4J("--log4j"),
+        LOG4J2("--log4j2");
 
         private final String flag;
 

@@ -29,15 +29,17 @@ import org.lttng.ust.agent.session.LogLevelSelector;
  *
  * @author Alexandre Montplaisir
  */
-public final class EventRuleFactory {
+public abstract class EventRuleFactory {
 
     /** Name of the "all" (-a) event */
     public static final String EVENT_NAME_ALL = "*";
 
     /** Log level set by default when it is not specified */
-    public static final LogLevelSelector LOG_LEVEL_UNSPECIFIED = new LogLevelSelector(Integer.MIN_VALUE, 0);
+    public final LogLevelSelector LOG_LEVEL_UNSPECIFIED;
 
-    private EventRuleFactory() {}
+    protected EventRuleFactory(int levelAllValue) {
+        LOG_LEVEL_UNSPECIFIED = new LogLevelSelector(levelAllValue, 0);
+    }
 
     /**
      * Construct an event by only passing the event name on the command-line.
@@ -46,7 +48,7 @@ public final class EventRuleFactory {
      *            The event name
      * @return The corresponding event rule
      */
-    public static EventRule createRule(String eventName) {
+    public EventRule createRule(String eventName) {
         return new EventRule(eventName, LOG_LEVEL_UNSPECIFIED, filterStringFromEventName(eventName));
     }
 
@@ -79,7 +81,7 @@ public final class EventRuleFactory {
      *            The filter string passed on the command-line
      * @return The corresponding event rule
      */
-    public static EventRule createRule(String eventName, LogLevelSelector logLevelSelector, String extraFilter) {
+    public EventRule createRule(String eventName, LogLevelSelector logLevelSelector, String extraFilter) {
         StringJoiner sj1 = new StringJoiner(") && (", "(", ")");
         sj1.add(extraFilter);
         sj1.add(filterStringFromEventName(eventName));
@@ -104,7 +106,7 @@ public final class EventRuleFactory {
      *
      * @return The corresponding event rule
      */
-    public static EventRule createRuleAllEvents() {
+    public EventRule createRuleAllEvents() {
         return new EventRule(EVENT_NAME_ALL, LOG_LEVEL_UNSPECIFIED, "");
     }
 

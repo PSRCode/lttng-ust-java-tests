@@ -27,13 +27,18 @@ import java.util.logging.Logger;
 
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Tag;
 import org.lttng.tools.ILttngSession.Domain;
 import org.lttng.ust.agent.jul.LttngLogHandler;
+import org.lttng.ust.agent.utils.EventRuleFactory;
+import org.lttng.ust.agent.utils.JulEventRuleFactory;
 import org.lttng.ust.agent.utils.JulTestUtils;
 
 /**
  * Implementation of {@link FilterListenerOrderingITBase} for the JUL API.
  */
+@Tag("agent:jul")
+@Tag("domain:jul")
 public class JulFilterListenerOrderingIT extends FilterListenerOrderingITBase {
 
     private Logger logger;
@@ -80,5 +85,13 @@ public class JulFilterListenerOrderingIT extends FilterListenerOrderingITBase {
 
         handler.close();
         handler = null;
+    }
+
+    @Override
+    protected EventRuleFactory getEventRuleFactory() {
+        if (eventRuleFactory == null) {
+            eventRuleFactory = new JulEventRuleFactory();
+        }
+        return eventRuleFactory;
     }
 }

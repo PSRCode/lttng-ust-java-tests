@@ -22,10 +22,13 @@ import java.io.IOException;
 
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Tag;
 import org.lttng.tools.ILttngSession;
 import org.lttng.ust.agent.ILttngHandler;
 import org.lttng.ust.agent.jul.LttngLogHandler;
+import org.lttng.ust.agent.utils.EventRuleFactory;
 import org.lttng.ust.agent.utils.ILogLevelStrings;
+import org.lttng.ust.agent.utils.JulEventRuleFactory;
 import org.lttng.ust.agent.utils.JulTestUtils;
 
 /**
@@ -33,6 +36,8 @@ import org.lttng.ust.agent.utils.JulTestUtils;
  *
  * @author Alexandre Montplaisir
  */
+@Tag("agent:jul")
+@Tag("domain:jul")
 public class JulFilterListenerIT extends FilterListenerITBase {
 
     /**
@@ -64,6 +69,14 @@ public class JulFilterListenerIT extends FilterListenerITBase {
     @Override
     protected ILogLevelStrings getLogLevelStrings() {
         return ILogLevelStrings.JUL_LOGLEVEL_STRINGS;
+    }
+
+    @Override
+    protected EventRuleFactory getEventRuleFactory() {
+        if (eventRuleFactory == null) {
+            eventRuleFactory = new JulEventRuleFactory();
+        }
+        return eventRuleFactory;
     }
 
 }

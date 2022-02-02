@@ -27,13 +27,18 @@ import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Tag;
 import org.lttng.tools.ILttngSession.Domain;
 import org.lttng.ust.agent.log4j.LttngLogAppender;
+import org.lttng.ust.agent.utils.EventRuleFactory;
+import org.lttng.ust.agent.utils.Log4jEventRuleFactory;
 import org.lttng.ust.agent.utils.Log4jTestUtils;
 
 /**
  * Implementation of {@link FilterListenerOrderingITBase} for the log4j API.
  */
+@Tag("agent:log4j")
+@Tag("domain:log4j")
 public class Log4jFilterListenerOrderingIT extends FilterListenerOrderingITBase {
 
     private Logger logger;
@@ -80,5 +85,13 @@ public class Log4jFilterListenerOrderingIT extends FilterListenerOrderingITBase 
 
         appender.close();
         appender = null;
+    }
+
+    @Override
+    protected EventRuleFactory getEventRuleFactory() {
+        if (eventRuleFactory == null) {
+            eventRuleFactory = new Log4jEventRuleFactory();
+        }
+        return eventRuleFactory;
     }
 }
