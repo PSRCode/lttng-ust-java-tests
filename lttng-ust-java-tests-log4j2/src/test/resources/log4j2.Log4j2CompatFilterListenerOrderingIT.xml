@@ -4,16 +4,16 @@
         <Console name="Console" target="SYSTEM_OUT">
           <PatternLayout pattern="%d{HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n"/>
         </Console>
-        <Lttng name="Lttng" domain="LOG4J2"/>
+        <Lttng name="Lttng" domain="LOG4J"/>
     </Appenders>
     <Loggers>
         <Logger name="EventA">
           <AppenderRef ref="Console"/>
-          <AppenderRef ref="Lttng" log4j1Compat="true"/>
+          <AppenderRef ref="Lttng"/>
         </Logger>
         <Logger name="EventB">
           <AppenderRef ref="Console"/>
-          <AppenderRef ref="Lttng" log4j1Compat="true"/>
+          <AppenderRef ref="Lttng"/>
         </Logger>
         <Root level="all"/>
     </Loggers>
