@@ -182,9 +182,9 @@ public abstract class FilterListenerITBase {
         LogLevelSelector lls3 = new LogLevelSelector(getLogLevelStrings().infoInt(), LogLevelType.LTTNG_EVENT_LOGLEVEL_RANGE);
 
         Set<EventRule> rules = Stream.of(
-                    EventRuleFactory.createRule(EVENT_NAME_A, lls1),
-                    EventRuleFactory.createRule(EVENT_NAME_A, lls2),
-                    EventRuleFactory.createRule(EVENT_NAME_A, lls3))
+                getEventRuleFactory().createRule(EVENT_NAME_A, lls1),
+                getEventRuleFactory().createRule(EVENT_NAME_A, lls2),
+                getEventRuleFactory().createRule(EVENT_NAME_A, lls3))
                 .collect(Collectors.toSet());
 
         session.enableEvent(EVENT_NAME_A, getLogLevelStrings().warningName(), false, null);

@@ -22,7 +22,7 @@ import org.junit.jupiter.api.Tag;
 import org.lttng.tools.ILttngSession;
 import org.lttng.ust.agent.utils.EventRuleFactory;
 import org.lttng.ust.agent.utils.ILogLevelStrings;
-import org.lttng.ust.agent.utils.Log4j2CompatEventRuleFactory;
+import org.lttng.ust.agent.utils.Log4jEventRuleFactory;
 
 
 /**
@@ -45,7 +45,7 @@ public class Log4j2CompatFilterListenerIT extends Log4j2FilterListenerITBase {
     @Override
     protected EventRuleFactory getEventRuleFactory() {
         if (eventRuleFactory == null) {
-            eventRuleFactory = new Log4j2CompatEventRuleFactory();
+            eventRuleFactory = new Log4jEventRuleFactory();
         }
         return eventRuleFactory;
     }

@@ -287,7 +287,7 @@ public class TcpClientIT {
         session.enableEvent(EVENT_NAME_A, getLogLevelStrings().warningName(), false, null);
 
         List<EventRule> expectedCommands = Collections.singletonList(
-                EventRuleFactory.createRule(EVENT_NAME_A, lls));
+                eventRuleFactory.createRule(EVENT_NAME_A, lls));
         List<EventRule> actualCommands = clientListener.getEnabledEventCommands();
 
         assertEquals(expectedCommands, actualCommands);
@@ -303,7 +303,7 @@ public class TcpClientIT {
         session.enableEvent(EVENT_NAME_A, getLogLevelStrings().warningName(), true, null);
 
         List<EventRule> expectedCommands = Collections.singletonList(
-                EventRuleFactory.createRule(EVENT_NAME_A, lls));
+                eventRuleFactory.createRule(EVENT_NAME_A, lls));
         List<EventRule> actualCommands = clientListener.getEnabledEventCommands();
 
         assertEquals(expectedCommands, actualCommands);
@@ -321,8 +321,8 @@ public class TcpClientIT {
         session.enableEvent(EVENT_NAME_A, getLogLevelStrings().warningName(), true, null);
 
         List<EventRule> expectedCommands = Arrays.asList(
-                EventRuleFactory.createRule(EVENT_NAME_A, lls1),
-                EventRuleFactory.createRule(EVENT_NAME_A, lls2)
+                eventRuleFactory.createRule(EVENT_NAME_A, lls1),
+                eventRuleFactory.createRule(EVENT_NAME_A, lls2)
                 );
         List<EventRule> actualCommands = clientListener.getEnabledEventCommands();
 
@@ -341,8 +341,8 @@ public class TcpClientIT {
         session.enableEvent(EVENT_NAME_A, getLogLevelStrings().warningName(), false, null);
 
         List<EventRule> expectedCommands = Arrays.asList(
-                EventRuleFactory.createRule(EVENT_NAME_A, lls1),
-                EventRuleFactory.createRule(EVENT_NAME_A, lls2)
+                eventRuleFactory.createRule(EVENT_NAME_A, lls1),
+                eventRuleFactory.createRule(EVENT_NAME_A, lls2)
                 );
         List<EventRule> actualCommands = clientListener.getEnabledEventCommands();
 
@@ -364,8 +364,8 @@ public class TcpClientIT {
             session2.enableEvent(EVENT_NAME_A, getLogLevelStrings().warningName(), true, null);
 
             List<EventRule> expectedCommands = Arrays.asList(
-                    EventRuleFactory.createRule(EVENT_NAME_A, lls1),
-                    EventRuleFactory.createRule(EVENT_NAME_A, lls2));
+                    eventRuleFactory.createRule(EVENT_NAME_A, lls1),
+                    eventRuleFactory.createRule(EVENT_NAME_A, lls2));
             List<EventRule> actualCommands = clientListener.getEnabledEventCommands();
 
             assertEquals(expectedCommands, actualCommands);

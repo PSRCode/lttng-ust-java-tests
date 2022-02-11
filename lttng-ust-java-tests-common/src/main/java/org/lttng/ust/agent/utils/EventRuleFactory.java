@@ -37,8 +37,13 @@ public abstract class EventRuleFactory {
     /** Log level set by default when it is not specified */
     public final LogLevelSelector LOG_LEVEL_UNSPECIFIED;
 
-    protected EventRuleFactory(int levelAllValue) {
+
+    /** Range operator string */
+    public final String rangeOperator;
+
+    protected EventRuleFactory(int levelAllValue, String rangeOperator) {
         LOG_LEVEL_UNSPECIFIED = new LogLevelSelector(levelAllValue, 0);
+        this.rangeOperator = rangeOperator;
     }
 
     /**
@@ -61,7 +66,7 @@ public abstract class EventRuleFactory {
      *            The log level
      * @return The corresponding event rule
      */
-    public static EventRule createRule(String eventName, LogLevelSelector logLevelSelector) {
+    public EventRule createRule(String eventName, LogLevelSelector logLevelSelector) {
         StringJoiner sj = new StringJoiner(") && (", "(", ")");
         String filterStr = sj.add(filterStringFromEventName(eventName))
                 .add(filterStringFromLogLevel(logLevelSelector))
@@ -114,13 +119,13 @@ public abstract class EventRuleFactory {
         return "logger_name == \"" + eventName + "\"";
     }
 
-    private static String filterStringFromLogLevel(LogLevelSelector logLevelSelector) {
+    private String filterStringFromLogLevel(LogLevelSelector logLevelSelector) {
         StringBuilder sb = new StringBuilder();
         sb.append("int_loglevel ");
 
         switch (logLevelSelector.getLogLevelType()) {
         case LTTNG_EVENT_LOGLEVEL_RANGE:
-            sb.append(">=");
+            sb.append(rangeOperator);
             break;
         case LTTNG_EVENT_LOGLEVEL_SINGLE:
             sb.append("==");
@@ -133,5 +138,4 @@ public abstract class EventRuleFactory {
         sb.append(" " + logLevelSelector.getLogLevel());
         return sb.toString();
     }
-
 }
